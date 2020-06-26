@@ -105,9 +105,9 @@ function createWave(element) {
 
         const actualIndex = Number(element.dataset.position);
 
-        // element.innerHTML = actualPower
-        // element.bgColor = getColor(actualPower)
+        element.innerHTML = document.querySelector('#showNumbers').checked ? actualPower : null
         element.bgColor = color
+
         history.add(element.dataset.position)
 
         setTimeout(() => {
