@@ -4,6 +4,7 @@ html, body {
   margin: 0;
   background: #DCECC9;
   overflow: unset;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 html, body, table {
@@ -62,10 +63,16 @@ td {
   border: 1px solid #ccc;
   background: #00000059;
   text-align: center;
+  opacity: 0.2;
 }
 
-.menu h3 {
-  margin: 0
+.menu h4 {
+  margin: 7px 0px;
+  background: #ffffffad;
+}
+
+.menu:hover {
+   opacity: 1;
 }
 
 .menu hr {

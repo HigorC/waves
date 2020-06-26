@@ -1,7 +1,7 @@
 const tableSize = 10;
 const totalSize = tableSize * tableSize
 
-const delayPropagation = 50
+const delayPropagation = 30
 
 const colors = [
     "#1e0492",
@@ -111,10 +111,21 @@ function createWave(element) {
         history.add(element.dataset.position)
 
         setTimeout(() => {
-            wavePropagation(getTopElement(actualIndex), actualPower - 1, history, color)
-            wavePropagation(getLeftElement(actualIndex), actualPower - 1, history, color)
-            wavePropagation(getDownElement(actualIndex), actualPower - 1, history, color)
-            wavePropagation(getRigthElement(actualIndex), actualPower - 1, history, color)
+            if (document.querySelector('#propagateUp').checked) {
+                wavePropagation(getTopElement(actualIndex), actualPower - 1, history, color)
+            }
+
+            if (document.querySelector('#propagateLeft').checked) {
+                wavePropagation(getLeftElement(actualIndex), actualPower - 1, history, color)
+            }
+
+            if (document.querySelector('#propagateDown').checked) {
+                wavePropagation(getDownElement(actualIndex), actualPower - 1, history, color)
+            }
+
+            if (document.querySelector('#propagateRigth').checked) {
+                wavePropagation(getRigthElement(actualIndex), actualPower - 1, history, color)
+            }
 
             setTimeout(() => {
                 element.bgColor = '#DCECC9'
