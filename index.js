@@ -1,8 +1,6 @@
 const tableSize = 10;
 const totalSize = tableSize * tableSize
 
-const delayPropagation = 30
-
 const colors = [
     "#1e0492",
     "#550fcb",
@@ -104,6 +102,8 @@ function createWave(element) {
         if (history.has(element.dataset.position)) return;
 
         const actualIndex = Number(element.dataset.position);
+
+        const delayPropagation = document.querySelector('#propagationDelay').value;
 
         element.innerHTML = document.querySelector('#showNumbers').checked ? actualPower : null
         element.bgColor = color
