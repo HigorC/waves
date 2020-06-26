@@ -1,5 +1,4 @@
-const tableSize = 10;
-const totalSize = tableSize * tableSize
+const tableInfo = {}
 
 const colors = [
     "#1e0492",
@@ -18,14 +17,32 @@ const colors = [
     "#8F00FF"
 ]
 
-const maxPower = colors.length - 1
+let cacheElements = {}
+
+/**
+ * Update table infos and erase cache elements
+ */
+const updateTableInfo = () => {
+    tableInfo.tableSize = Number(document.querySelector('#tableSize').value)
+    tableInfo.totalSize = Math.pow(tableInfo.tableSize, 2)
+    tableInfo.lastColor = null
+    cacheElements = {}
+}
 
 /**
  * Returns a randon color
  * @returns { String }
  */
 const getRandonColor = () => {
-    return colors[Math.floor(Math.random() * colors.length - 1)]
+    let color = colors[Math.floor(Math.random() * colors.length - 1)]
+
+    while (tableInfo.lastColor === color) {
+        color = colors[Math.floor(Math.random() * colors.length - 1)]
+    }
+
+    tableInfo.lastColor = color
+
+    return tableInfo.lastColor
 }
 
 /**
@@ -34,7 +51,10 @@ const getRandonColor = () => {
  * @returns { HTMLElement }
  */
 function getElement(actualIndex) {
-    return document.querySelector(`[data-position="${actualIndex}"]`)
+    if (!cacheElements[actualIndex]) {
+        cacheElements[actualIndex] = document.querySelector(`[data-position="${actualIndex}"]`)
+    }
+    return cacheElements[actualIndex]
 }
 
 /**
@@ -44,7 +64,7 @@ function getElement(actualIndex) {
  */
 function getLeftElement(actualIndex) {
     const leftIndex = actualIndex - 1;
-    if (leftIndex % tableSize === tableSize - 1) return null
+    if (leftIndex % tableInfo.tableSize === tableInfo.tableSize - 1) return null
     return getElement(leftIndex)
 }
 
@@ -55,7 +75,7 @@ function getLeftElement(actualIndex) {
  */
 function getRigthElement(actualIndex) {
     const rigthIndex = actualIndex + 1;
-    if (rigthIndex % tableSize === 0) return null
+    if (rigthIndex % tableInfo.tableSize === 0) return null
     return getElement(rigthIndex)
 }
 
@@ -65,7 +85,7 @@ function getRigthElement(actualIndex) {
  * @returns { HTMLElement }
  */
 function getTopElement(actualIndex) {
-    const topIndex = actualIndex - tableSize;
+    const topIndex = actualIndex - tableInfo.tableSize;
     if (topIndex < 0) return null
     return getElement(topIndex)
 }
@@ -76,8 +96,8 @@ function getTopElement(actualIndex) {
  * @returns { HTMLElement }
  */
 function getDownElement(actualIndex) {
-    const downIndex = actualIndex + tableSize;
-    if (downIndex > totalSize) return null
+    const downIndex = actualIndex + tableInfo.tableSize;
+    if (downIndex > tableInfo.totalSize) return null
     return getElement(downIndex)
 }
 
@@ -127,15 +147,15 @@ function createWave(element) {
                 wavePropagation(getRigthElement(actualIndex), actualPower - 1, history, color)
             }
 
-            setTimeout(() => {
+            if (document.querySelector('#justEdges').checked) {
                 element.bgColor = '#DCECC9'
-            }, delayPropagation)
+            }
 
         }, delayPropagation);
     }
 
     const history = new Set()
-    wavePropagation(element, maxPower, history, getRandonColor())
+    wavePropagation(element, tableInfo.tableSize, history, getRandonColor())
 }
 
 /**
@@ -144,12 +164,13 @@ function createWave(element) {
  */
 function inicializeTable() {
     const table = document.querySelector('table');
+    updateTableInfo()
 
     let tableContent = '<table>';
 
-    for (let i = 0, count = 0; i < tableSize; i++) {
+    for (let i = 0, count = 0; i < tableInfo.tableSize; i++) {
         tableContent += '<tr>'
-        for (let j = 0; j < tableSize; j++ , count++) {
+        for (let j = 0; j < tableInfo.tableSize; j++ , count++) {
             tableContent += `<td data-position=${count} onclick="createWave(this)"></td>`
         }
         tableContent += '</tr>'

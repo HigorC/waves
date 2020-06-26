@@ -13,11 +13,11 @@ html, body, table {
 
 table {
   border-collapse: collapse;
+  font-size: 10px;
   width: 100%;
 }
 
 table, th, td {
-  /* border: 1px solid black; */
   border: none;
 }
 
@@ -27,6 +27,7 @@ td {
 }
 
 .footer {
+  opacity: 0.9;
   position: fixed;
   bottom: 0;
   color: #ffffff;
@@ -56,6 +57,7 @@ td {
 }
 
 .menu {
+  color: #ffffff;
   position: absolute;
   top: 10px;
   left:10px;
@@ -67,6 +69,7 @@ td {
 }
 
 .menu h4 {
+  color: #000000;
   margin: 7px 0px;
   background: #ffffffad;
 }

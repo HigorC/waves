@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./waves.css">
+    <link rel="stylesheet" href="./waves.css?sss">
     <title>Waves</title>
 </head>
 
@@ -14,6 +14,11 @@
         <h4>General</h4>
         <label for="showNumbers">Show numbers</label>
         <input id="showNumbers" type="checkbox"><br>
+        <label for="justEdges">Just edges</label>
+        <input id="justEdges" type="checkbox"><br>
+        <label for="tableSize">Table size</label>
+        <input id="tableSize" type="range" min="10" max="40" value=10 step="10" onchange="inicializeTable()"/><br>
+
         <label for="propagationDelay">Delay</label>
         <input id="propagationDelay" type="range" min="20" max="1000" value="30"><br>
 
